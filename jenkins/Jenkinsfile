@@ -4,6 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
+                    #!/bin/bash
                     export PATH=/opt/apache-maven-3.9.5/bin:$PATH
                     mvn --version
                     mvn -B -DskipTests clean package'
