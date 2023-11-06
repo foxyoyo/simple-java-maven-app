@@ -31,5 +31,11 @@ pipeline {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
+
+        stage('Multi-brnch-1') {
+            steps {
+                echo "Only saw in branch:multi-branch-test1"
+            }
+        }
     }
 }
