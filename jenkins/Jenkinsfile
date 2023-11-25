@@ -26,6 +26,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Nexus') {
+            steps {
+                sh '''
+                    #!/bin/bash
+                    export PATH=/opt/apache-maven-3.9.5/bin:$PATH
+                    ls -al /opt/apache-maven-3.9.5/
+                    cp ./nexus/settings.xml /opt/apache-maven-3.9.5/conf
+                    mvn --version
+                    mvn deploy
+                '''
+            }
+        }
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
