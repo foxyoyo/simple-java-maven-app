@@ -30,8 +30,8 @@ pipeline {
             steps {
                 configFileProvider(
                     [configFile(fileId: 'nexus3', variable: 'MAVEN_SETTINGS')]) {
-                    sh 'mvn -s $MAVEN_SETTINGS package --batch-mode'
-                    sh 'mvn -s $MAVEN_SETTINGS deploy'
+                    // sh 'mvn -s $MAVEN_SETTINGS package --batch-mode'
+                    sh 'mvn -s $MAVEN_SETTINGS clean deploy -X'
                 }
             }
         }
