@@ -28,15 +28,11 @@ pipeline {
         }
         stage('Deploy to Nexus') {
             steps {
-                sh '''
-                    #!/bin/bash
-                    export PATH=/opt/apache-maven-3.9.5/bin:$PATH
-                    pwd
-                    ls -al ./opt/apache-maven-3.9.5/
-                    cp ./nexus/settings.xml /opt/apache-maven-3.9.5/conf
-                    mvn --version
-                    mvn deploy
-                '''
+                configFileProvider(
+                    [configFile(fileId: 'nexus3', variable: 'MAVEN_SETTINGS')]) {
+                    sh 'mvn -s $MAVEN_SETTINGS package --batch-mode'
+                    sh 'mvn -s $MAVEN_SETTINGS deploy'
+                }
             }
         }
         stage('Deliver') {
